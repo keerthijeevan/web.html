@@ -1,0 +1,66 @@
+<!-- Save this as test-vscode.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>VS Code Test Page</title>
+  <style>
+    :root{--bg:#f3f4f6;--accent:#0b5fff}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial}
+    body{display:flex;align-items:center;justify-content:center;background:var(--bg);color:#111}
+    .card{width:min(760px,94%);padding:28px;border-radius:14px;box-shadow:0 6px 20px rgba(10,10,10,.08);background:white}
+    h1{margin:0 0 8px;font-size:28px}
+    p{margin:0 0 16px;color:#444}
+    .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    button{padding:10px 14px;border-radius:8px;border:0;cursor:pointer;background:var(--accent);color:white;font-weight:600}
+    input{padding:10px;border-radius:8px;border:1px solid #ddd}
+    .log{margin-top:14px;padding:12px;border-radius:8px;background:#fafafa;border:1px dashed #eee;color:#333;font-family:monospace}
+    .clock{font-weight:700}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>VS Code + Browser Test ✔️</h1>
+    <p>Use the controls below to verify your setup. Open browser DevTools (F12 / Ctrl+Shift+I) to see console messages.</p>
+
+    <div class="row">
+      <button id="btnAlert">Show test alert</button>
+      <button id="btnToggle">Toggle background</button>
+      <input id="nameInput" placeholder="Type your name and press Enter" />
+      <button id="btnLog">Log input to console</button>
+    </div>
+
+    <div class="row" style="margin-top:18px;align-items:center;">
+      <div>Current time: <span id="time" class="clock">--:--:--</span></div>
+    </div>
+
+    <div class="log" id="output">Console and alerts will confirm things are running.</div>
+  </div>
+
+  <script>
+    // Basic runtime test (console + DOM)
+    console.log("test-vscode.html loaded — console working");
+
+    const btnAlert = document.getElementById("btnAlert");
+    const btnToggle = document.getElementById("btnToggle");
+    const btnLog = document.getElementById("btnLog");
+    const nameInput = document.getElementById("nameInput");
+    const output = document.getElementById("output");
+    const timeEl = document.getElementById("time");
+
+    btnAlert.addEventListener("click", () => {
+      alert("VS Code test: alert displayed — JS works!");
+      console.log("Alert button clicked");
+      output.textContent = "Alert shown. (Check browser alert + console)";
+    });
+
+    btnToggle.addEventListener("click", () => {
+      document.body.style.background = document.body.style.background === "black" ? "" : "black";
+      document.body.style.color = document.body.style.color === "white" ? "" : "white";
+      console.log("Background toggled");
+      output.textContent = "Background toggled. (Visual confirmation)";
+    });
+
+    btnLog.addEventListener("click", () => {
+      const v = nameInput.value.trim() || "<empty>";
